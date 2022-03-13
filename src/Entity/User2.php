@@ -28,7 +28,7 @@ class User2 implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email]
     private $email;
 
-    #[ORM\Column(type: 'array')]
+    #[ORM\Column(type: 'json')]
     private $roles = [];
 
     #[ORM\Column(type: 'text')]
