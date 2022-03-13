@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/product.css" >
+{% endblock %}
+
+{% block body %}
+
+    <div id="block_produit">
+
+        <div id="photo">
+                <img src={{ produit.media.source }} alt={{produit.media.alt}} class="img_produits"/>
+        </div>
+
+        <div id="description">
+
+            <h2>{{ produit.nom }}</h2>
+            <p id="prix">{{ produit.prixUnitaire }} €</p>
+            <p>{{ produit.description}}</p>
+
+            <button><a href="/panier/add?id_produit={{produit.id}}">Ajouter au panier </a></button>
+
+        </div>
+
+    </div>
+{% endblock %}

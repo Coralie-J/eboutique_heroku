@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création de compte{% endblock %}
+
+{% block body %}
+
+    {% for error in errors %}
+        <p> {{error.message }} </p>
+    {% endfor %}
+
+    <form action="/user/new" method="POST">
+
+        <p>
+            <label for="nom">Nom </label>
+            <input type="text" name="nom">
+        </p>
+
+        <p>
+            <label for="prenom">Prénom </label>
+            <input type="text" name="prenom" >
+        </p>
+
+        <p>
+            <label for="email">Email </label>
+            <input type="text" name="email" >
+        </p>
+
+        <p>
+            <label for="password">Password </label>
+            <input type="password" name="password" >
+        </p>
+
+        <p>
+            <label for="adresse">Adresse </label>
+            <input type="text" name="adresse" >
+        </p>
+
+        <p>
+            <label for="code_postal">Code postal </label>
+            <input type="number" name="code_postal" >
+        </p>
+
+        <p>
+            <label for="ville">Ville </label>
+            <input type="text" name="ville" >
+        </p>
+
+        <input type="submit" value="Save"/>
+
+    </form>
+
+{% endblock %}

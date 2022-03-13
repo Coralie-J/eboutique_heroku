@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="/css/base.css" >
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <header>
+
+        <div id="bandeau">
+            <h1><a href="/home" class="link"><img src="/images/music_note.png" alt="logo" id="logo"/> Music shop </a></h1>
+
+            {% set nb_items_paniers = 0 %}
+
+            {% if app.session.get('panier') %}
+
+                {% for article in app.session.get('panier').PanierLines %}
+                    {% set nb_items_paniers = nb_items_paniers + article.Quantite %}
+                {% endfor %}
+            {% endif %}
+
+            <div id="gestion_user">
+                {% if app.session.get('username') %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                            <a href="/categorie/">Gérer les catégories</a>
+                            <a href="/produit/">Gérer des produits</a>
+                    {% endif %}
+                    <a href="/user/profile" class="link_menu"> {{ app.session.get('username') }} </a>
+                    <a href="/commande" class="link_menu"> Vos commandes </a>
+                    <a href="/panier"  class="link_menu"> Panier {{ nb_items_paniers }} </a>
+                    <a href="/user/logout" class="link_menu"> Déconnexion </a>
+
+                {% else %}
+                    <a href="/user/new" class="link_menu">Créer un compte </a>
+                    <a href="/panier"  class="link_menu"> Panier {{ nb_items_paniers }} </a>
+                    <a href="/user/login" class="link_menu"> Connexion </a>
+
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="categories_menu">
+            <ul id="menu">
+                {% for categorie in categories %}
+                    <li class="item_menu"><a href="/categorie/{{categorie.id}}" class="link"> {{ categorie.nom }} </a></li>
+                {% else %}
+                    <li> Aucune catégorie </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </header>
+
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

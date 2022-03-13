@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+    <h1>Commande n°{{ commande.id }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th> Produit </th>
+                <th> Quantité </th>
+                <th> Prix unitaire </th>
+            </tr>
+
+            {% for commandeline in commandeLines %}
+                <tr>
+                    <td>{{ commandeline.IdProduit.nom }}</td>
+                    <td>x{{ commandeline.quantite }}</td>
+                    <td>{{ commandeline.IdProduit.prixUnitaire }} €</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier {% endblock %}
+
+{% block body %}
+    <h1>Panier </h1>
+
+    {% if panier | length > 0 %}
+        {% set montant = 0 %}
+        
+        <form method="POST" action="/panier/update">
+
+            <table class="table">
+
+                <tbody>
+
+                    {% for produit in panier %}
+                        <tr>
+                            <td>{{ produit.IdProduit.nom }}</td>
+                            <td><input type="number" value={{ produit.quantite }} name={{produit.IdProduit.id}}></td>
+                            <td>{{produit.IdProduit.prixUnitaire}} € </td>
+                            <td><button><a href="/panier/remove/?id_produit={{produit.IdProduit.id}}"> Supprimer </a> </button></td>
+                        </tr>
+
+                        {% set montant = montant + (produit.IdProduit.prixUnitaire * produit.quantite) %}
+
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <input type="submit" value="Mettre à jour" />
+
+        </form>
+
+        <p> Montant de la commande : {{ montant }} € </p>
+
+        <button><a href="/commande/new/"> Commander </a> </button>
+
+    {% else %}
+        <p> Il n'y a aucun article dans votre panier </p>
+    {% endif %}
+
+{% endblock %}
